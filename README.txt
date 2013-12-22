@@ -1,3 +1,35 @@
+======================================================================
+
+                   Target-Driven Smoke Simulation
+
+                      written by Zichen Zheng
+
+======================================================================
+
+
+---------
+  ABOUT
+---------
+
+This is a 2D implementation of a SIGGRAPH 2004 paper "Target-Driven Smoke Animation" by et al.
+
+
+------------------------
+  WHAT'S IN THE SOURCE
+------------------------
+
+The following lists what is included in each directory:
+TDSmoke:   source code
+assets:    test files (in XML)
+cmake:     CMake configuration files
+include:   source code of required libraries (Eigen, RapidXML, TCLAP)
+utilities: help programs (especially for creating test files)
+
+
+------------------
+  HOW TO COMPILE
+------------------
+
 In a project root directory:
     $ mkdir build
     $ cd build
@@ -7,17 +39,17 @@ In a project root directory:
 If you want to change cmake options (e.g. Debug/Release mode, export PNG, etc.), then enter the following command in build/ directory:
     $ ccmake ..
 
---------------------------------------------------------------
 
-Special notes for OS X 10.9 Mavericks:
+--------------------------
+  FOR OS X 10.9 MAVERICS
+--------------------------
 
 1. Update your Xcode to 5.0.1 for the latest version of SDK, which contains the necessary frameworks namely GLUT and OpenGL.
 
-2. cmake -D OPENGL_INCLUDE_DIR=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -D GLUT_INCLUDE_DIR=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/GLUT.framework/Versions/A/Headers ..
+2. $ cmake -D OPENGL_INCLUDE_DIR=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers -D GLUT_INCLUDE_DIR=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/GLUT.framework/Versions/A/Headers ..
 
-3. Fix the incompatibility in the FOSSSim code:
-   a) Change the 176 line of (Your base folder)/include/eigen/Eigen/src/Core/Transpositions.h from "size" to "size()".
-   b) Change the "bool operator<(const Interval &other)" in /FOSSSim/ContinuousTimeUtilities.h to "bool operator<(const Interval &other) const" (if applicable).
+3. Fix the incompatibility in the TDSmoke code:
+   Change the 176 line of (Your base folder)/include/eigen/Eigen/src/Core/Transpositions.h from "size" to "size()".
 
 
 OR:
@@ -32,4 +64,14 @@ OR:
 3. Do similar stuffs to gcc, c++, and cpp
 
 4. You don't need to change anything else to compile the source code!
+
+
+NOTE: You may note compile the code under OS X 10.9 when USE_PNG is set.
+
+
+--------------
+  REFERENCES
+--------------
+
+Raanan Fattal and Dani Lischinski. 2004. Target-driven smoke animation. ACM Trans. Graph. 23, 3 (August 2004), 441-448.
 
