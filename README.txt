@@ -66,9 +66,6 @@ OR:
 4. You don't need to change anything else to compile the source code!
 
 
-NOTE: You may note compile the code under OS X 10.9 when USE_PNG is set.
-
-
 --------------
   REFERENCES
 --------------

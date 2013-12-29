@@ -37,7 +37,7 @@ scalar g_last_time = timingutils::seconds();
 ///////////////////////////////////////////////////////////////////////////////
 // PNG Output State
 
-std::string g_movie_dir = "";
+std::string g_movie_dir = "pngs";
 int g_steps_per_movie_frame = 0;
 
 
@@ -119,13 +119,10 @@ void stepSystem()
 {
     // If the user wants to generate a PNG movie
 #ifdef PNGOUT
-    if( g_opengl_rendering_enabled && g_movie_dir != "" && g_current_step%g_steps_per_movie_frame == 0 )
-    {
         std::stringstream oss;
-        oss << g_movie_dir << "/frame" << std::setw(10) << std::setfill('0') << g_current_step << ".png";
-        std::cout << outputmod::startpink << "TDSmoke STATUS: " << outputmod::endpink << "Saving png to " << oss.str() << ". Exiting." << std::endl;
+        oss << g_movie_dir << "/frame" << std::setw(5) << std::setfill('0') << g_current_step << ".png";
+        //std::cout << outputmod::startpink << "TDSmoke STATUS: " << outputmod::endpink << "Saving png to " << oss.str() << ". Exiting." << std::endl;
         dumpPNG(oss.str());
-    }
 #endif
     
     // Determine if the simulation is complete.
@@ -218,13 +215,14 @@ void menu(int num) {
 
 void createMenu() {
     g_submenu_id = glutCreateMenu(menu);
-    glutAddMenuEntry("Sphere", 2);
-    glutAddMenuEntry("Cone", 3);
-    glutAddMenuEntry("Torus", 4);
-    glutAddMenuEntry("Teapot", 5);
+    glutAddMenuEntry("Black and White", 2);
+    glutAddMenuEntry("Summer", 3);
+    glutAddMenuEntry("Winter", 4);
+    glutAddMenuEntry("Spring", 5);
+    glutAddMenuEntry("Autumn", 6);
     g_menu_id = glutCreateMenu(menu);
-    glutAddMenuEntry("Clear", 1);
-    glutAddSubMenu("Draw", g_submenu_id);
+    glutAddMenuEntry("Reset", 1);
+    glutAddSubMenu("Color Map", g_submenu_id);
     glutAddMenuEntry("Quit", 0);
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
@@ -262,6 +260,21 @@ void drawFPS() {
     assert( renderingutils::checkGLErrors() );
 }
 
+void drawDescription() {
+    setOrthographicProjection();
+    glColor3d(1.0-g_simulation_ensemble->getBackgroundColor().r(),1.0-g_simulation_ensemble->getBackgroundColor().g(),1.0-g_simulation_ensemble->getBackgroundColor().b());
+    
+    std::string str(g_description);
+    renderBitmapString( 20, 20, 0.0, GLUT_BITMAP_HELVETICA_18, str );
+    
+    glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+    
+    assert( renderingutils::checkGLErrors() );
+}
+
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -271,7 +284,11 @@ void display()
     
     g_simulation_ensemble->display();
     
+#ifdef PNGOUT
+    drawDescription();
+#else
     drawFPS();
+#endif
     
     glutSwapBuffers();
     
@@ -518,6 +535,11 @@ void cleanupAtExit()
 int main( int argc, char** argv )
 {
     srand(time(0));
+
+    #ifdef PNGOUT
+    system("rm pngs/*");
+    #endif
+
     // Parse command line arguments
     parseCommandLine( argc, argv );
     

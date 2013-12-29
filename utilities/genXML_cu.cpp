@@ -10,10 +10,10 @@ using namespace std;
 
 ofstream file;
 
-const int N = 80;
+const int N = 200;
 const float sigma = 1.0;
-const float vf = 2.0;
-const float vd = 1.5;
+const float vf = 8.0;
+const float vd = 1.1;
 const float vg = 0.0001;
 
 //===============
@@ -21,12 +21,12 @@ const float vg = 0.0001;
 //===============
 
 int main() {
-    file.open ("test01.xml");
+    file.open ("cu.xml");
     
     // XML file header (some definitions)
     file << "<scene>" << endl;
     file << "  <simtype type=\"td-smoke\"/>" << endl;
-    file << "  <description text=\"Target-driven smoke: 'X' becomes 'O'\"/>" << endl;
+    file << "  <description text=\"Columbia University logo\"/>" << endl;
     file << "  <duration time=\"20.0\"/>" << endl;
     file << endl;
     file << "  <fluid-region n=\"" << N << "\"/>" << endl;
@@ -36,20 +36,17 @@ int main() {
     file << "  <gathering vg=\"" << vg << "\" enabled=\"1\"/>" << endl;
     file << endl;
     
-    // marker
-    for (int i = N/20; i < N-N/20; i++) {
-        file << "  <marker i=\"" << i << "\" j=\"" << i << "\"/>" << endl;
-        file << "  <marker i=\"" << i << "\" j=\"" << N-i << "\"/>" << endl;
-    }
+    ifstream markerFile, targetFile;
+    markerFile.open("proc_img/cu_text_200.txt");
+    targetFile.open("proc_img/cu_crown_200.txt");
     
-    // target
-    for (int i = 1; i < N; i++) {
-        for (int j = 1; j < N; j++) {
-            float dist_to_center = pow(i-N/2,2) + pow(j-N/2,2);
-            dist_to_center = sqrt(dist_to_center);
-            if (fabs(dist_to_center - (float)N/4) < 1) {
-                file << "  <target i=\"" << i << "\" j=\"" << j << "\"/>" << endl;
-            }
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            bool m, t;
+            markerFile >> m;
+            targetFile >> t;
+            if (m) file << "  <marker i=\"" << i << "\" j=\"" << j << "\"/>" << endl;
+            if (t) file << "  <target i=\"" << i << "\" j=\"" << j << "\"/>" << endl;
         }
     }
     
@@ -58,6 +55,8 @@ int main() {
     // End of XML file
     file << "</scene>" << endl;
     
+    markerFile.close();
+    targetFile.close();
     file.close();
     return 0;
 }

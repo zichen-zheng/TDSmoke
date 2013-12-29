@@ -4,9 +4,9 @@
   <duration time="20.0"/>
 
   <fluid-region n="200"/>
-  <smoothing sigma="1"/>
-  <drivingforce vf="2"/>
-  <attenuation vd="1.5"/>
+  <smoothing sigma="2.5"/>
+  <drivingforce vf="7.5"/>
+  <attenuation vd="1.15"/>
   <gathering vg="0.0001" enabled="1"/>
 
   <marker i="46" j="106"/>

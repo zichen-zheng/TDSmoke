@@ -2,7 +2,7 @@
 #include <Eigen/LU>
 
 //#define VERBOSE (0)
-#define MAX_ITERATIONS 20
+#define MAX_ITERATIONS 45
 
 TDSmokeSim::TDSmokeSim( const int& rows, const int& cols, const scalar& diff, const scalar& visc, const scalar& sigma, const scalar& vf, const scalar& vd, const scalar& vg, const bool& vg_enabled)
 : m_N(rows)
@@ -448,7 +448,7 @@ void TDSmokeSim::vel_step(int N, ArrayXs* u, ArrayXs* v, ArrayXs* u0, ArrayXs* v
     SWAP(v0, v); 
     applyForce(N, u, v, u0, v0, blr_d, blr_tg_d, vf, dt);
     
-    SWAP(u0, u); 
+    SWAP(u0, u);
     SWAP(v0, v); 
     diffuseU(N, u, u0, visc, dt); 
     diffuseV(N, v, v0, visc, dt); 

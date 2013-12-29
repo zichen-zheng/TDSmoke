@@ -9,9 +9,9 @@
 #define DEFAULT_DIFF    0.0001
 #define DEFAULT_VISC    0.00000001
 #define DEFAULT_SIGMA   1.0
-#define DEFAULT_VF      1.0
-#define DEFAULT_VD      0.7
-#define DEFAULT_VG      0.0001
+#define DEFAULT_VF      8.0
+#define DEFAULT_VD      1.1
+#define DEFAULT_VG      1e-4
 #define DEFAULT_VG_ENABLED 1
 
 class TDSmokeSim

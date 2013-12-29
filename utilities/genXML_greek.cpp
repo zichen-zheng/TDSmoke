@@ -10,10 +10,10 @@ using namespace std;
 
 ofstream file;
 
-const int N = 200;
+const int N = 100;
 const float sigma = 1.0;
-const float vf = 2.0;
-const float vd = 1.5;
+const float vf = 8.0;
+const float vd = 1.1;
 const float vg = 0.0001;
 
 //===============
@@ -21,12 +21,12 @@ const float vg = 0.0001;
 //===============
 
 int main() {
-    file.open ("test05.xml");
+    file.open ("greek.xml");
     
     // XML file header (some definitions)
     file << "<scene>" << endl;
     file << "  <simtype type=\"td-smoke\"/>" << endl;
-    file << "  <description text=\"Columbia University logo\"/>" << endl;
+    file << "  <description text=\"Omega becomes psy (similar to an example on the original paper)\"/>" << endl;
     file << "  <duration time=\"20.0\"/>" << endl;
     file << endl;
     file << "  <fluid-region n=\"" << N << "\"/>" << endl;
@@ -37,8 +37,8 @@ int main() {
     file << endl;
     
     ifstream markerFile, targetFile;
-    markerFile.open("proc_img/cu_text_200.txt");
-    targetFile.open("proc_img/cu_crown_200.txt");
+    markerFile.open("proc_img/omega.txt");
+    targetFile.open("proc_img/psy.txt");
     
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {

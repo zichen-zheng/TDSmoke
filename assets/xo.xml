@@ -1,13 +1,13 @@
 <scene>
   <simtype type="td-smoke"/>
-  <description text="Target-driven smoke: 'X' becomes 'O' while disabling gathering."/>
+  <description text="'X' becomes 'O'"/>
   <duration time="20.0"/>
 
   <fluid-region n="80"/>
-  <smoothing sigma="1"/>
-  <drivingforce vf="2"/>
-  <attenuation vd="1.5"/>
-  <gathering vg="0.0001" enabled="0"/>
+  <smoothing sigma="1.0"/>
+  <drivingforce vf="8.0"/>
+  <attenuation vd="1.1"/>
+  <gathering vg="0.0001" enabled="1"/>
 
   <marker i="4" j="4"/>
   <marker i="4" j="76"/>
